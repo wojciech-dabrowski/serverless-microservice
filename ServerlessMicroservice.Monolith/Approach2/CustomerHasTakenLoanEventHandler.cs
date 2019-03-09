@@ -1,4 +1,5 @@
 using ServerlessMicroservice.Framework.Events;
+using ServerlessMicroservice.Monolith.Approach2.EmailSender;
 using ServerlessMicroservice.Monolith.Events;
 
 namespace ServerlessMicroservice.Monolith.Approach2
@@ -17,8 +18,10 @@ namespace ServerlessMicroservice.Monolith.Approach2
         {
             // Some logic (maybe business as well) related with actions when customer has taken loan
 
-            var mailBody = $"Hi, {@event.CustomerFirstName}\n\nYou have taken a loan for {@event.LoanAmount} euro.";
-            emailSender.SendMail(@event.CustomerMailAddress, MailSubject, mailBody);
+            var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
+                           $"You have taken a loan for {@event.LoanAmount} euro.";
+            var sendEmailModel = new SendEmailModel(@event.CustomerMailAddress, MailSubject, mailBody);
+            emailSender.SendMail(sendEmailModel);
         }
     }
 }

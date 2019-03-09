@@ -5,12 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ServerlessMicroservice.EmailSender\ServerlessMicroservice.EmailSender.csproj" />
       <ProjectReference Include="..\ServerlessMicroservice.Framework\ServerlessMicroservice.Framework.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Approach4" />
-      <Folder Include="Approach5" />
     </ItemGroup>
 
 </Project>

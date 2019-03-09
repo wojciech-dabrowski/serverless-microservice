@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 
-namespace ServerlessMicroservice.Monolith.Approach2
+namespace ServerlessMicroservice.Monolith.Approach2.EmailSender
 {
     public class EmailSender : IEmailSender
     {
@@ -15,17 +15,17 @@ namespace ServerlessMicroservice.Monolith.Approach2
             this.smtpConfig = smtpConfig;
         }
 
-        public void SendMail(string toMailAddress, string mailSubject, string mailBody)
+        public void SendMail(SendEmailModel model)
         {
             var smtpSend = new SmtpClient(smtpConfig.SmtpServerHost);
 
             using (var emailMessage = new MailMessage())
             {
-                emailMessage.To.Add(toMailAddress);
+                emailMessage.To.Add(model.ToMailAddress);
 
                 emailMessage.From = mailConfig.FromMailAddress;
-                emailMessage.Subject = mailSubject;
-                emailMessage.Body = mailBody;
+                emailMessage.Subject = model.MailSubject;
+                emailMessage.Body = model.MailBody;
                 emailMessage.IsBodyHtml = true;
                 emailMessage.BodyEncoding = Encoding.Unicode;
 

@@ -1,17 +1,16 @@
+using ServerlessMicroservice.EmailSender;
 using ServerlessMicroservice.Framework.Events;
-using ServerlessMicroservice.Monolith.Approach2.EmailSender;
 using ServerlessMicroservice.Monolith.Events;
 
-namespace ServerlessMicroservice.Monolith.Approach2
+namespace ServerlessMicroservice.Monolith.Approach5
 {
     public class LoanHasBeenPaidOffEventHandler : IEventHandler<LoanHasBeenPaidOffEvent>
     {
         private const string MailSubject = "Your loan has been paid off";
-        private readonly IEmailSender emailSender;
 
-        public LoanHasBeenPaidOffEventHandler(IEmailSender emailSender)
+        public LoanHasBeenPaidOffEventHandler()
         {
-            this.emailSender = emailSender;
+            //TODO
         }
 
         public void Handle(LoanHasBeenPaidOffEvent @event)

@@ -8,9 +8,9 @@ namespace ServerlessMicroservice.Monolith.Approach1
 {
     public class CustomerHasTakenLoanEventHandler : IEventHandler<CustomerHasTakenLoanEvent>
     {
+        private const string MailSubject = "You have taken a loan";
         private readonly IMailConfig mailConfig;
         private readonly ISmtpConfig smtpConfig;
-        private const string MailSubject = "You have taken a loan";
 
         public CustomerHasTakenLoanEventHandler(ISmtpConfig smtpConfig, IMailConfig mailConfig)
         {
@@ -22,7 +22,8 @@ namespace ServerlessMicroservice.Monolith.Approach1
         {
             // Some logic (maybe business as well) related with actions when customer has taken loan
 
-            var mailBody = $"Hi, {@event.CustomerFirstName}\n\nYou have taken a loan for {@event.LoanAmount} euro.";
+            var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
+                           $"You have taken a loan for {@event.LoanAmount} euro.";
             SendMail(@event.CustomerMailAddress, mailBody);
         }
 

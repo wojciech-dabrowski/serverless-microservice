@@ -2,7 +2,7 @@ using ServerlessMicroservice.EmailSender;
 using ServerlessMicroservice.Framework.Events;
 using ServerlessMicroservice.Monolith.Events;
 
-namespace ServerlessMicroservice.Monolith.Approach3
+namespace ServerlessMicroservice.Monolith.Approach4
 {
     public class CustomerHasTakenLoanEventHandler : IEventHandler<CustomerHasTakenLoanEvent>
     {
@@ -17,6 +17,9 @@ namespace ServerlessMicroservice.Monolith.Approach3
         public void Handle(CustomerHasTakenLoanEvent @event)
         {
             // Some logic (maybe business as well) related with actions when customer has taken loan
+
+            // NOTE: In this example it looks exactly the same as Approach#3,
+            // but in this case dependencies should be installed via NuGet instead of direct referring EmailSender project 
 
             var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
                            $"You have taken a loan for {@event.LoanAmount} euro.";

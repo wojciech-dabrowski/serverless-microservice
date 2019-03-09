@@ -8,24 +8,25 @@ namespace ServerlessMicroservice.Monolith.Approach1
 {
     public class LoanHasBeenPaidOffEventHandler : IEventHandler<LoanHasBeenPaidOffEvent>
     {
+        private const string MailSubject = "Your loan has been paid off";
         private readonly IMailConfig mailConfig;
         private readonly ISmtpConfig smtpConfig;
-        private const string MailSubject = "Your loan has been paid off";
 
         public LoanHasBeenPaidOffEventHandler(IMailConfig mailConfig, ISmtpConfig smtpConfig)
         {
             this.mailConfig = mailConfig;
             this.smtpConfig = smtpConfig;
         }
-        
+
         public void Handle(LoanHasBeenPaidOffEvent @event)
         {
             // Some logic (maybe business as well) related with actions when customer has taken loan
 
-            var mailBody = $"Hi, {@event.CustomerFirstName}\n\nYour loan for {@event.LoanAmount} euro has been paid off.";
+            var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
+                           $"Your loan for {@event.LoanAmount} euro has been paid off.";
             SendMail(@event.CustomerMailAddress, mailBody);
         }
-        
+
         private void SendMail(string toMailAddress, string mailBody)
         {
             var smtpSend = new SmtpClient(smtpConfig.SmtpServerHost);

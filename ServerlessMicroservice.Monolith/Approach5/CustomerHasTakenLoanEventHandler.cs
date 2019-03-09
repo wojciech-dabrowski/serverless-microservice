@@ -2,16 +2,15 @@ using ServerlessMicroservice.EmailSender;
 using ServerlessMicroservice.Framework.Events;
 using ServerlessMicroservice.Monolith.Events;
 
-namespace ServerlessMicroservice.Monolith.Approach3
+namespace ServerlessMicroservice.Monolith.Approach5
 {
     public class CustomerHasTakenLoanEventHandler : IEventHandler<CustomerHasTakenLoanEvent>
     {
         private const string MailSubject = "You have taken a loan";
-        private readonly IEmailSender emailSender;
 
-        public CustomerHasTakenLoanEventHandler(IEmailSender emailSender)
+        public CustomerHasTakenLoanEventHandler()
         {
-            this.emailSender = emailSender;
+            //TODO
         }
 
         public void Handle(CustomerHasTakenLoanEvent @event)
