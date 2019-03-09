@@ -1,4 +1,4 @@
-namespace ServerlessMicroservice.Framework.Event
+namespace ServerlessMicroservice.Framework.Events
 {
     public interface IEventHandler<in T>
         where T : IEvent

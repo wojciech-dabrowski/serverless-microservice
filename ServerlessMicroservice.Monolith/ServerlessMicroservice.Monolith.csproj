@@ -9,9 +9,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Approach1" />
-      <Folder Include="Approach2" />
-      <Folder Include="Approach3" />
       <Folder Include="Approach4" />
       <Folder Include="Approach5" />
     </ItemGroup>
