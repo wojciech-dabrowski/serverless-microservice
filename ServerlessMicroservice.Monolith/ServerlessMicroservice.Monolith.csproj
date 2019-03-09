@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ServerlessMicroservice.Framework\ServerlessMicroservice.Framework.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Approach1" />
+      <Folder Include="Approach2" />
+      <Folder Include="Approach3" />
+      <Folder Include="Approach4" />
+      <Folder Include="Approach5" />
+    </ItemGroup>
+
+</Project>

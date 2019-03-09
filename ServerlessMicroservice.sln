@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerlessMicroservice.Monolith", "ServerlessMicroservice.Monolith\ServerlessMicroservice.Monolith.csproj", "{8E3E604A-84CC-4458-8C9C-194087201C83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerlessMicroservice.Framework", "ServerlessMicroservice.Framework\ServerlessMicroservice.Framework.csproj", "{16489176-1B3E-4D32-AEDD-CAFE9F07397A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E3E604A-84CC-4458-8C9C-194087201C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E3E604A-84CC-4458-8C9C-194087201C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E3E604A-84CC-4458-8C9C-194087201C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E3E604A-84CC-4458-8C9C-194087201C83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16489176-1B3E-4D32-AEDD-CAFE9F07397A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16489176-1B3E-4D32-AEDD-CAFE9F07397A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16489176-1B3E-4D32-AEDD-CAFE9F07397A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16489176-1B3E-4D32-AEDD-CAFE9F07397A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
