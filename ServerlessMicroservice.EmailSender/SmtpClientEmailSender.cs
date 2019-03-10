@@ -2,14 +2,14 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 
-namespace ServerlessMicroservice.Monolith.Approach2.EmailSender
+namespace ServerlessMicroservice.EmailSender
 {
-    public class EmailSender : IEmailSender
+    public class SmtpClientEmailSender : IEmailSender
     {
         private readonly IMailConfig mailConfig;
         private readonly ISmtpConfig smtpConfig;
 
-        public EmailSender(IMailConfig mailConfig, ISmtpConfig smtpConfig)
+        public SmtpClientEmailSender(IMailConfig mailConfig, ISmtpConfig smtpConfig)
         {
             this.mailConfig = mailConfig;
             this.smtpConfig = smtpConfig;

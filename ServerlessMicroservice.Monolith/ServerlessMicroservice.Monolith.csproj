@@ -5,8 +5,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ServerlessMicroservice.EmailSenderMicroservice.SDK\ServerlessMicroservice.EmailSenderMicroservice.SDK.csproj" />
       <ProjectReference Include="..\ServerlessMicroservice.EmailSender\ServerlessMicroservice.EmailSender.csproj" />
       <ProjectReference Include="..\ServerlessMicroservice.Framework\ServerlessMicroservice.Framework.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AWSSDK.Lambda" Version="3.3.19.23" />
     </ItemGroup>
 
 </Project>
