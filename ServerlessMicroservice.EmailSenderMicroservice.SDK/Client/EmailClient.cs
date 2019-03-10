@@ -40,7 +40,7 @@ namespace ServerlessMicroservice.EmailSenderMicroservice.SDK.Client
 
             CheckLambdaResult(invokeResult);
 
-            return Encoding.UTF8.GetString(invokeResult.Payload.ToArray());
+            return invokeResult.Payload.Deserialize<string>();
         }
 
         public string InsertEmail(InsertEmailModel insertEmailModelModel) => InsertEmailAsync(insertEmailModelModel).GetAwaiter().GetResult();
