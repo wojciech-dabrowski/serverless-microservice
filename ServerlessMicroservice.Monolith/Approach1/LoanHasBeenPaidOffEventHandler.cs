@@ -23,7 +23,7 @@ namespace ServerlessMicroservice.Monolith.Approach1
             // Some logic (maybe business as well) related with actions when customer has taken loan
 
             var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
-                           $"Your loan for {@event.LoanAmount} euro has been paid off.";
+                           $"Your loan for {@event.LoanAmount} {@event.LoanCurrency} has been paid off.";
             SendMail(@event.CustomerMailAddress, mailBody);
         }
 
@@ -43,7 +43,8 @@ namespace ServerlessMicroservice.Monolith.Approach1
                 {
                     smtpClient.Port = smtpConfig.SmtpPort;
                     smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new NetworkCredential(smtpConfig.SmtpUserName, smtpConfig.SmtpUserPassword);
+                    smtpClient.Credentials =
+                        new NetworkCredential(smtpConfig.SmtpUserName, smtpConfig.SmtpUserPassword);
 
                     smtpClient.Send(emailMessage);
                 }

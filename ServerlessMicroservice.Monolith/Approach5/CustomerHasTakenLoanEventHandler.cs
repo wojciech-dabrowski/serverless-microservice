@@ -18,7 +18,7 @@ namespace ServerlessMicroservice.Monolith.Approach5
             // Some logic (maybe business as well) related with actions when customer has taken loan
 
             var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
-                           $"You have taken a loan for {@event.LoanAmount} euro.";
+                           $"You have taken a loan for {@event.LoanAmount} {@event.LoanCurrency}.";
             var sendEmailModel = new SendEmailModel(@event.CustomerMailAddress, MailSubject, mailBody);
 //            emailSender.SendMail(sendEmailModel);
         }

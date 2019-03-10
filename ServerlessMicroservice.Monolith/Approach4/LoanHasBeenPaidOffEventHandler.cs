@@ -22,7 +22,7 @@ namespace ServerlessMicroservice.Monolith.Approach4
             // but in this case dependencies should be installed via NuGet instead of direct referring EmailSender project 
 
             var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
-                           $"Your loan for {@event.LoanAmount} euro has been paid off.";
+                           $"Your loan for {@event.LoanAmount} {@event.LoanCurrency} has been paid off.";
             var sendEmailModel = new SendEmailModel(@event.CustomerMailAddress, MailSubject, mailBody);
             emailSender.SendMail(sendEmailModel);
         }

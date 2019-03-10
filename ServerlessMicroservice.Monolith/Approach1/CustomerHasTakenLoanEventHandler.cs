@@ -6,48 +6,48 @@ using ServerlessMicroservice.Monolith.Events;
 
 namespace ServerlessMicroservice.Monolith.Approach1
 {
-    public class CustomerHasTakenLoanEventHandler : IEventHandler<CustomerHasTakenLoanEvent>
+public class CustomerHasTakenLoanEventHandler : IEventHandler<CustomerHasTakenLoanEvent>
+{
+    private const string MailSubject = "You have taken a loan";
+    private readonly IMailConfig mailConfig;
+    private readonly ISmtpConfig smtpConfig;
+
+    public CustomerHasTakenLoanEventHandler(ISmtpConfig smtpConfig, IMailConfig mailConfig)
     {
-        private const string MailSubject = "You have taken a loan";
-        private readonly IMailConfig mailConfig;
-        private readonly ISmtpConfig smtpConfig;
+        this.smtpConfig = smtpConfig;
+        this.mailConfig = mailConfig;
+    }
 
-        public CustomerHasTakenLoanEventHandler(ISmtpConfig smtpConfig, IMailConfig mailConfig)
+    public void Handle(CustomerHasTakenLoanEvent @event)
+    {
+        // Some logic (maybe business as well) related with actions when customer has taken loan
+
+        var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
+                       $"You have taken a loan for {@event.LoanAmount} {@event.LoanCurrency}.";
+        SendMail(@event.CustomerMailAddress, mailBody);
+    }
+
+    private void SendMail(string toMailAddress, string mailBody)
+    {
+        using (var emailMessage = new MailMessage())
         {
-            this.smtpConfig = smtpConfig;
-            this.mailConfig = mailConfig;
-        }
+            emailMessage.To.Add(toMailAddress);
 
-        public void Handle(CustomerHasTakenLoanEvent @event)
-        {
-            // Some logic (maybe business as well) related with actions when customer has taken loan
+            emailMessage.From = mailConfig.FromMailAddress;
+            emailMessage.Subject = MailSubject;
+            emailMessage.Body = mailBody;
+            emailMessage.IsBodyHtml = true;
+            emailMessage.BodyEncoding = Encoding.Unicode;
 
-            var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
-                           $"You have taken a loan for {@event.LoanAmount} euro.";
-            SendMail(@event.CustomerMailAddress, mailBody);
-        }
-
-        private void SendMail(string toMailAddress, string mailBody)
-        {
-            using (var emailMessage = new MailMessage())
+            using (var smtpClient = new SmtpClient(smtpConfig.SmtpServerHost))
             {
-                emailMessage.To.Add(toMailAddress);
+                smtpClient.Port = smtpConfig.SmtpPort;
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = new NetworkCredential(smtpConfig.SmtpUserName, smtpConfig.SmtpUserPassword);
 
-                emailMessage.From = mailConfig.FromMailAddress;
-                emailMessage.Subject = MailSubject;
-                emailMessage.Body = mailBody;
-                emailMessage.IsBodyHtml = true;
-                emailMessage.BodyEncoding = Encoding.Unicode;
-
-                using (var smtpClient = new SmtpClient(smtpConfig.SmtpServerHost))
-                {
-                    smtpClient.Port = smtpConfig.SmtpPort;
-                    smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new NetworkCredential(smtpConfig.SmtpUserName, smtpConfig.SmtpUserPassword);
-
-                    smtpClient.Send(emailMessage);
-                }
+                smtpClient.Send(emailMessage);
             }
         }
     }
+}
 }
