@@ -20,7 +20,7 @@ namespace ServerlessMicroservice.Monolith.Approach5
             var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
                            $"You have taken a loan for {@event.LoanAmount} euro.";
             var sendEmailModel = new SendEmailModel(@event.CustomerMailAddress, MailSubject, mailBody);
-            emailSender.SendMail(sendEmailModel);
+//            emailSender.SendMail(sendEmailModel);
         }
     }
 }

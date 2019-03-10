@@ -29,8 +29,6 @@ namespace ServerlessMicroservice.Monolith.Approach1
 
         private void SendMail(string toMailAddress, string mailBody)
         {
-            var smtpSend = new SmtpClient(smtpConfig.SmtpServerHost);
-
             using (var emailMessage = new MailMessage())
             {
                 emailMessage.To.Add(toMailAddress);
@@ -41,11 +39,14 @@ namespace ServerlessMicroservice.Monolith.Approach1
                 emailMessage.IsBodyHtml = true;
                 emailMessage.BodyEncoding = Encoding.Unicode;
 
-                smtpSend.Port = smtpConfig.SmtpPort;
-                smtpSend.UseDefaultCredentials = false;
-                smtpSend.Credentials = new NetworkCredential(smtpConfig.SmtpUserName, smtpConfig.SmtpUserPassword);
+                using (var smtpClient = new SmtpClient(smtpConfig.SmtpServerHost))
+                {
+                    smtpClient.Port = smtpConfig.SmtpPort;
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.Credentials = new NetworkCredential(smtpConfig.SmtpUserName, smtpConfig.SmtpUserPassword);
 
-                smtpSend.Send(emailMessage);
+                    smtpClient.Send(emailMessage);
+                }
             }
         }
     }
