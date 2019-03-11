@@ -48,7 +48,7 @@ namespace ServerlessMicroservice.EmailSenderMicroservice.Lambdas
             var request = new ReceiveMessageRequest
             {
                 QueueUrl = EnvironmentVariables.MailQueue,
-                MaxNumberOfMessages = EnvironmentVariables.MailNumberPerSecond
+                MaxNumberOfMessages = EnvironmentVariables.MailNumberPerBatch
             };
 
             var sqsResult = await sqsClient.ReceiveMessageAsync(request);
@@ -70,11 +70,14 @@ namespace ServerlessMicroservice.EmailSenderMicroservice.Lambdas
 
             var invokeResponse = await lambdaClient.InvokeAsync(request);
 
-            if (!WasCorrectlySent(invokeResponse))
+            if (WasCorrectlySent(invokeResponse))
             {
-                return;
+                await DeleteMessage(sqsMessage, invokeResponse);
             }
+        }
 
+        private async Task DeleteMessage(Message sqsMessage, InvokeResponse invokeResponse)
+        {
             var deleteMessageRequest = new DeleteMessageRequest
             {
                 QueueUrl = EnvironmentVariables.MailQueue,

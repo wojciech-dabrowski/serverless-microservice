@@ -52,7 +52,10 @@ namespace ServerlessMicroservice.EmailSenderMicroservice.Lambdas
 
                 if (result.HttpStatusCode != HttpStatusCode.OK)
                 {
-                    throw new Exception($"Received status code {(int) result.HttpStatusCode}: {result.HttpStatusCode} in response");
+                    throw new Exception(
+                        "An error occured during putting S3 object."
+                      + $"Received status code {(int) result.HttpStatusCode} in response"
+                    );
                 }
             }
         }

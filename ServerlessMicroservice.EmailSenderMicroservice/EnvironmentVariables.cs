@@ -6,7 +6,7 @@ namespace ServerlessMicroservice.EmailSenderMicroservice
     {
         public static string MailSendingBucket => Environment.GetEnvironmentVariable("MailSendingBucket");
         public static string MailQueue => Environment.GetEnvironmentVariable("MailQueueUrl");
-        public static int MailNumberPerSecond => Int32.Parse(Environment.GetEnvironmentVariable("MailNumberPerSecond"));
+        public static int MailNumberPerBatch => Int32.Parse(Environment.GetEnvironmentVariable("MailNumberPerSecond"));
         public static string SendEmailLambdaName => Environment.GetEnvironmentVariable("SendEmailLambdaName");
     }
 }
