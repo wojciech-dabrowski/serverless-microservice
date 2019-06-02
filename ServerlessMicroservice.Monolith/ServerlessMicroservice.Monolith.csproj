@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ServerlessMicroservice.EmailSenderMicroservice.SDK\ServerlessMicroservice.EmailSenderMicroservice.SDK.csproj" />
+      <ProjectReference Include="..\Microservice\ServerlessMicroservice.EmailSenderMicroservice.SDK\ServerlessMicroservice.EmailSenderMicroservice.SDK.csproj" />
       <ProjectReference Include="..\ServerlessMicroservice.EmailSender\ServerlessMicroservice.EmailSender.csproj" />
       <ProjectReference Include="..\ServerlessMicroservice.Framework\ServerlessMicroservice.Framework.csproj" />
     </ItemGroup>
