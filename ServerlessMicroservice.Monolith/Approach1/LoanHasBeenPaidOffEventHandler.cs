@@ -9,13 +9,13 @@ namespace ServerlessMicroservice.Monolith.Approach1
     public class LoanHasBeenPaidOffEventHandler : IEventHandler<LoanHasBeenPaidOffEvent>
     {
         private const string MailSubject = "Your loan has been paid off";
-        private readonly IMailConfig mailConfig;
-        private readonly ISmtpConfig smtpConfig;
+        private readonly IMailConfig _mailConfig;
+        private readonly ISmtpConfig _smtpConfig;
 
         public LoanHasBeenPaidOffEventHandler(IMailConfig mailConfig, ISmtpConfig smtpConfig)
         {
-            this.mailConfig = mailConfig;
-            this.smtpConfig = smtpConfig;
+            _mailConfig = mailConfig;
+            _smtpConfig = smtpConfig;
         }
 
         public void Handle(LoanHasBeenPaidOffEvent @event)
@@ -32,18 +32,18 @@ namespace ServerlessMicroservice.Monolith.Approach1
             {
                 emailMessage.To.Add(toMailAddress);
 
-                emailMessage.From = mailConfig.FromMailAddress;
+                emailMessage.From = _mailConfig.FromMailAddress;
                 emailMessage.Subject = MailSubject;
                 emailMessage.Body = mailBody;
                 emailMessage.IsBodyHtml = true;
                 emailMessage.BodyEncoding = Encoding.Unicode;
 
-                using (var smtpClient = new SmtpClient(smtpConfig.SmtpServerHost))
+                using (var smtpClient = new SmtpClient(_smtpConfig.SmtpServerHost))
                 {
-                    smtpClient.Port = smtpConfig.SmtpPort;
+                    smtpClient.Port = _smtpConfig.SmtpPort;
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.Credentials =
-                        new NetworkCredential(smtpConfig.SmtpUserName, smtpConfig.SmtpUserPassword);
+                        new NetworkCredential(_smtpConfig.SmtpUserName, _smtpConfig.SmtpUserPassword);
 
                     smtpClient.Send(emailMessage);
                 }

@@ -7,11 +7,11 @@ namespace ServerlessMicroservice.Monolith.Approach4
     public class CustomerHasTakenLoanEventHandler : IEventHandler<CustomerHasTakenLoanEvent>
     {
         private const string MailSubject = "You have taken a loan";
-        private readonly IEmailSender emailSender;
+        private readonly IEmailSender _emailSender;
 
         public CustomerHasTakenLoanEventHandler(IEmailSender emailSender)
         {
-            this.emailSender = emailSender;
+            _emailSender = emailSender;
         }
 
         public void Handle(CustomerHasTakenLoanEvent @event)
@@ -24,7 +24,7 @@ namespace ServerlessMicroservice.Monolith.Approach4
             var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
                            $"You have taken a loan for {@event.LoanAmount} {@event.LoanCurrency}.";
             var sendEmailModel = new SendEmailModel(@event.CustomerMailAddress, MailSubject, mailBody);
-            emailSender.SendMail(sendEmailModel);
+            _emailSender.SendMail(sendEmailModel);
         }
     }
 }

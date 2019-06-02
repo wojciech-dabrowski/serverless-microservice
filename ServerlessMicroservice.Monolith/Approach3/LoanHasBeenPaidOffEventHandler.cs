@@ -7,11 +7,11 @@ namespace ServerlessMicroservice.Monolith.Approach3
     public class LoanHasBeenPaidOffEventHandler : IEventHandler<LoanHasBeenPaidOffEvent>
     {
         private const string MailSubject = "Your loan has been paid off";
-        private readonly IEmailSender emailSender;
+        private readonly IEmailSender _emailSender;
 
         public LoanHasBeenPaidOffEventHandler(IEmailSender emailSender)
         {
-            this.emailSender = emailSender;
+            _emailSender = emailSender;
         }
 
         public void Handle(LoanHasBeenPaidOffEvent @event)
@@ -21,7 +21,7 @@ namespace ServerlessMicroservice.Monolith.Approach3
             var mailBody = $"Hi, {@event.CustomerFirstName}\n\n" +
                            $"Your loan for {@event.LoanAmount} {@event.LoanCurrency} has been paid off.";
             var sendEmailModel = new SendEmailModel(@event.CustomerMailAddress, MailSubject, mailBody);
-            emailSender.SendMail(sendEmailModel);
+            _emailSender.SendMail(sendEmailModel);
         }
     }
 }

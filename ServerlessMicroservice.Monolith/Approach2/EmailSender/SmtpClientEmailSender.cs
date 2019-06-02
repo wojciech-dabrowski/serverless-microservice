@@ -6,13 +6,13 @@ namespace ServerlessMicroservice.Monolith.Approach2.EmailSender
 {
     public class SmtpClientEmailSender : IEmailSender
     {
-        private readonly IMailConfig mailConfig;
-        private readonly ISmtpConfig smtpConfig;
+        private readonly IMailConfig _mailConfig;
+        private readonly ISmtpConfig _smtpConfig;
 
         public SmtpClientEmailSender(IMailConfig mailConfig, ISmtpConfig smtpConfig)
         {
-            this.mailConfig = mailConfig;
-            this.smtpConfig = smtpConfig;
+            _mailConfig = mailConfig;
+            _smtpConfig = smtpConfig;
         }
 
         public void SendMail(SendEmailModel model)
@@ -21,17 +21,17 @@ namespace ServerlessMicroservice.Monolith.Approach2.EmailSender
             {
                 emailMessage.To.Add(model.ToMailAddress);
 
-                emailMessage.From = mailConfig.FromMailAddress;
+                emailMessage.From = _mailConfig.FromMailAddress;
                 emailMessage.Subject = model.MailSubject;
                 emailMessage.Body = model.MailBody;
                 emailMessage.IsBodyHtml = true;
                 emailMessage.BodyEncoding = Encoding.Unicode;
 
-                using (var smtpClient = new SmtpClient(smtpConfig.SmtpServerHost))
+                using (var smtpClient = new SmtpClient(_smtpConfig.SmtpServerHost))
                 {
-                    smtpClient.Port = smtpConfig.SmtpPort;
+                    smtpClient.Port = _smtpConfig.SmtpPort;
                     smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new NetworkCredential(smtpConfig.SmtpUserName, smtpConfig.SmtpUserPassword);
+                    smtpClient.Credentials = new NetworkCredential(_smtpConfig.SmtpUserName, _smtpConfig.SmtpUserPassword);
 
                     smtpClient.Send(emailMessage);
                 }

@@ -8,11 +8,11 @@ namespace ServerlessMicroservice.Monolith.Approach5
     public class CustomerHasTakenLoanEventHandler : IEventHandler<CustomerHasTakenLoanEvent>
     {
         private const string MailSubject = "You have taken a loan";
-        private readonly IEmailClient emailClient;
+        private readonly IEmailClient _emailClient;
 
         public CustomerHasTakenLoanEventHandler(IEmailClient emailClient)
         {
-            this.emailClient = emailClient;
+            _emailClient = emailClient;
         }
 
         public void Handle(CustomerHasTakenLoanEvent @event)
@@ -28,7 +28,7 @@ namespace ServerlessMicroservice.Monolith.Approach5
                 Body = mailBody
             };
 
-            emailClient.InsertEmail(insertMailModel);
+            _emailClient.InsertEmail(insertMailModel);
         }
     }
 }

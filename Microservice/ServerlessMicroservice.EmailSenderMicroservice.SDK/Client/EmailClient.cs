@@ -1,6 +1,5 @@
 using System;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.Lambda;
@@ -14,29 +13,29 @@ namespace ServerlessMicroservice.EmailSenderMicroservice.SDK.Client
 {
     public class EmailClient : IEmailClient, IDisposable
     {
-        private readonly string insertEmailLambdaName;
-        private readonly IEmailClientConfig emailClientConfig;
-        private readonly Lazy<IAmazonLambda> lambdaClient;
+        private readonly string _insertEmailLambdaName;
+        private readonly IEmailClientConfig _emailClientConfig;
+        private readonly Lazy<IAmazonLambda> _lambdaClient;
 
         public EmailClient(IEmailClientConfig emailClientConfig)
         {
-            this.emailClientConfig = emailClientConfig;
-            insertEmailLambdaName = GetInsertEmailLambdaName(emailClientConfig.EnvironmentType);
+            _emailClientConfig = emailClientConfig;
+            _insertEmailLambdaName = GetInsertEmailLambdaName(emailClientConfig.EnvironmentType);
 
-            lambdaClient = new Lazy<IAmazonLambda>(() => new AmazonLambdaClient(CreateAwsCredentials(), CreateRegionEndpoint()));
+            _lambdaClient = new Lazy<IAmazonLambda>(() => new AmazonLambdaClient(CreateAwsCredentials(), CreateRegionEndpoint()));
         }
 
         public async Task<string> InsertEmailAsync(InsertEmailModel insertEmailModelModel)
         {
-            insertEmailModelModel.From = emailClientConfig.FromMailAddress;
+            insertEmailModelModel.From = _emailClientConfig.FromMailAddress;
 
             var lambdaRequest = new InvokeRequest
             {
-                FunctionName = insertEmailLambdaName,
+                FunctionName = _insertEmailLambdaName,
                 Payload = JsonConvert.SerializeObject(insertEmailModelModel)
             };
 
-            var invokeResult = await lambdaClient.Value.InvokeAsync(lambdaRequest);
+            var invokeResult = await _lambdaClient.Value.InvokeAsync(lambdaRequest);
 
             CheckLambdaResult(invokeResult);
 
@@ -60,7 +59,7 @@ namespace ServerlessMicroservice.EmailSenderMicroservice.SDK.Client
 
         private RegionEndpoint CreateRegionEndpoint()
         {
-            var regionName = emailClientConfig.AwsConfig.RegionName;
+            var regionName = _emailClientConfig.AwsConfig.RegionName;
             var region = RegionEndpoint.GetBySystemName(regionName);
 
             return region;
@@ -68,8 +67,8 @@ namespace ServerlessMicroservice.EmailSenderMicroservice.SDK.Client
 
         private BasicAWSCredentials CreateAwsCredentials()
         {
-            var awsKey = emailClientConfig.AwsConfig.AwsKey;
-            var awsSecret = emailClientConfig.AwsConfig.AwsSecret;
+            var awsKey = _emailClientConfig.AwsConfig.AwsKey;
+            var awsSecret = _emailClientConfig.AwsConfig.AwsSecret;
             var credentials = new BasicAWSCredentials(awsKey, awsSecret);
 
             return credentials;
@@ -90,9 +89,9 @@ namespace ServerlessMicroservice.EmailSenderMicroservice.SDK.Client
 
         public void Dispose()
         {
-            if (lambdaClient.IsValueCreated)
+            if (_lambdaClient.IsValueCreated)
             {
-                lambdaClient.Value.Dispose();
+                _lambdaClient.Value.Dispose();
             }
         }
     }
